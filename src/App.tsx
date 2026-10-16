@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import ProtectedRoute from './auth/ProtectedRoute'
 import Layout from './components/layout/Layout'
+import Booking from './pages/Booking'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import PagePlaceholder from './pages/PagePlaceholder'
@@ -17,7 +18,7 @@ export default function App() {
         <Route path="buscar" element={<Search />} />
         <Route element={<ProtectedRoute />}>
           <Route path="mis-reservas" element={<PagePlaceholder title="Mis reservas" />} />
-          <Route path="reservar" element={<PagePlaceholder title="Completa tu reserva" />} />
+          <Route path="reservar" element={<Booking />} />
           <Route path="reserva/:id" element={<PagePlaceholder title="Tu reserva" />} />
           <Route path="factura/:id" element={<PagePlaceholder title="Tu factura" />} />
         </Route>

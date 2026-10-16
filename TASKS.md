@@ -33,7 +33,7 @@ One commit per task, using the task message with its `[x.y]` suffix. See `DESIGN
 ## Phase 4 - Booking
 
 - [x] feat(booking): guest data form with Spanish validation messages [4.1]
-- [ ] feat(booking): submit reservation and redirect to management panel [4.2]
+- [x] feat(booking): submit reservation and redirect to management panel [4.2]
 
 ## Phase 5 - Reservation management
 

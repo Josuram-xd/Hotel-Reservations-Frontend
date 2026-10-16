@@ -6,10 +6,12 @@ interface PricePreviewProps {
   room: AvailableRoom
   checkIn: string
   checkOut: string
+  /** Hide the "continue" link, e.g. when the preview is already inside the booking page. */
+  showAction?: boolean
 }
 
 /** Shows the price computed by the server. The client never recalculates the total. */
-export default function PricePreview({ room, checkIn, checkOut }: PricePreviewProps) {
+export default function PricePreview({ room, checkIn, checkOut, showAction = true }: PricePreviewProps) {
   const standardNights = room.nights - room.highSeasonNights
   const query = new URLSearchParams({ roomId: String(room.id), checkIn, checkOut }).toString()
 
@@ -42,9 +44,11 @@ export default function PricePreview({ room, checkIn, checkOut }: PricePreviewPr
           <dd className="font-medium text-gold">{formatMoney(room.totalPrice)}</dd>
         </div>
       </dl>
-      <ButtonLink to={`/reservar?${query}`} className="mt-6 w-full">
-        Continuar con la reserva
-      </ButtonLink>
+      {showAction && (
+        <ButtonLink to={`/reservar?${query}`} className="mt-6 w-full">
+          Continuar con la reserva
+        </ButtonLink>
+      )}
     </aside>
   )
 }
