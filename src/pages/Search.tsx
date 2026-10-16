@@ -1,7 +1,10 @@
 import { useSearchParams } from 'react-router-dom'
+import { useApi } from '../api/ApiContext'
+import type { RoomType } from '../api/types'
+import AvailabilityList from '../components/search/AvailabilityList'
 import SearchForm, { validateSearch } from '../components/search/SearchForm'
 import type { SearchValues } from '../components/search/SearchForm'
-import type { RoomType } from '../api/types'
+import { useAsync } from '../hooks/useAsync'
 
 const ROOM_TYPES: RoomType[] = ['SINGLE', 'DOUBLE', 'SUITE']
 
@@ -15,10 +18,19 @@ export function readSearchParams(params: URLSearchParams): SearchValues {
 }
 
 export default function Search() {
+  const api = useApi()
   const [params, setParams] = useSearchParams()
   const values = readSearchParams(params)
   const hasQuery = Boolean(values.checkIn && values.checkOut)
   const isValid = hasQuery && Object.keys(validateSearch(values)).length === 0
+
+  const availability = useAsync(
+    () =>
+      isValid
+        ? api.getAvailability({ checkIn: values.checkIn, checkOut: values.checkOut, type: values.type || undefined })
+        : Promise.resolve(null),
+    [api, isValid, values.checkIn, values.checkOut, values.type],
+  )
 
   function handleSearch(next: SearchValues) {
     const query: Record<string, string> = { checkIn: next.checkIn, checkOut: next.checkOut }
@@ -36,6 +48,16 @@ export default function Search() {
         <p role="alert" className="mt-6 text-red-300">
           Las fechas de la búsqueda no son válidas. Corrígelas e inténtalo de nuevo.
         </p>
+      )}
+      {isValid && (
+        <div className="mt-12">
+          <AvailabilityList
+            rooms={availability.data}
+            loading={availability.loading}
+            error={availability.error}
+            onRetry={availability.reload}
+          />
+        </div>
       )}
     </section>
   )
