@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useApi } from '../api/ApiContext'
 import type { Reservation } from '../api/types'
 import ReservationSummary from '../components/reservation/ReservationSummary'
+import ServicesPanel from '../components/reservation/ServicesPanel'
 import Button, { ButtonLink } from '../components/ui/Button'
 import { useAsync } from '../hooks/useAsync'
 
@@ -38,7 +39,12 @@ export default function ReservationPage() {
       </div>
     )
   } else if (reservation) {
-    content = <ReservationSummary reservation={reservation} />
+    content = (
+      <div className="flex flex-col gap-8">
+        <ReservationSummary reservation={reservation} />
+        <ServicesPanel reservation={reservation} onUpdated={setReservation} />
+      </div>
+    )
   }
 
   return (
