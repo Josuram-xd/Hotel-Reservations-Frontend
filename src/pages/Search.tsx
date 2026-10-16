@@ -1,7 +1,9 @@
+import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { useApi } from '../api/ApiContext'
 import type { RoomType } from '../api/types'
 import AvailabilityList from '../components/search/AvailabilityList'
+import PricePreview from '../components/search/PricePreview'
 import SearchForm, { validateSearch } from '../components/search/SearchForm'
 import type { SearchValues } from '../components/search/SearchForm'
 import { useAsync } from '../hooks/useAsync'
@@ -32,6 +34,9 @@ export default function Search() {
     [api, isValid, values.checkIn, values.checkOut, values.type],
   )
 
+  const [selectedId, setSelectedId] = useState<number | null>(null)
+  const selected = availability.data?.find((room) => room.id === selectedId) ?? null
+
   function handleSearch(next: SearchValues) {
     const query: Record<string, string> = { checkIn: next.checkIn, checkOut: next.checkOut }
     if (next.type) query.type = next.type
@@ -50,13 +55,18 @@ export default function Search() {
         </p>
       )}
       {isValid && (
-        <div className="mt-12">
+        <div className="mt-12 grid items-start gap-8 lg:grid-cols-[1fr_22rem]">
           <AvailabilityList
             rooms={availability.data}
             loading={availability.loading}
             error={availability.error}
+            selectedId={selected?.id ?? null}
+            onSelect={(room) => setSelectedId(room.id)}
             onRetry={availability.reload}
           />
+          {selected && !availability.loading && (
+            <PricePreview room={selected} checkIn={values.checkIn} checkOut={values.checkOut} />
+          )}
         </div>
       )}
     </section>
