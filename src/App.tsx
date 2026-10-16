@@ -5,6 +5,7 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import PagePlaceholder from './pages/PagePlaceholder'
 import Register from './pages/Register'
+import Search from './pages/Search'
 
 export default function App() {
   return (
@@ -13,7 +14,7 @@ export default function App() {
         <Route index element={<Home />} />
         <Route path="ingresar" element={<Login />} />
         <Route path="registro" element={<Register />} />
-        <Route path="buscar" element={<PagePlaceholder title="Busca tu habitación" />} />
+        <Route path="buscar" element={<Search />} />
         <Route element={<ProtectedRoute />}>
           <Route path="mis-reservas" element={<PagePlaceholder title="Mis reservas" />} />
           <Route path="reservar" element={<PagePlaceholder title="Completa tu reserva" />} />

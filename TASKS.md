@@ -25,7 +25,7 @@ One commit per task, using the task message with its `[x.y]` suffix. See `DESIGN
 
 ## Phase 3 - Search and selection
 
-- [ ] feat(search): date range search form with validation [3.1]
+- [x] feat(search): date range search form with validation [3.1]
 - [ ] feat(search): availability list filtered by room type [3.2]
 - [ ] feat(search): room selection with dynamic price preview from the server [3.3]
 - [ ] test(search): cover form validation and availability rendering [3.4]
