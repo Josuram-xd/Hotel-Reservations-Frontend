@@ -8,6 +8,10 @@ const MESSAGES: Record<string, string> = {
   RESERVATION_NOT_FOUND: 'No encontramos una reserva con ese código.',
   INVALID_STATE: 'Esta acción no está permitida en el estado actual de la reserva.',
   INVALID_SERVICE: 'El servicio seleccionado no es válido.',
+  UNAUTHORIZED: 'Tu sesión expiró o no has iniciado sesión. Ingresa de nuevo para continuar.',
+  FORBIDDEN: 'No tienes permiso para ver o modificar esta reserva.',
+  INVALID_CREDENTIALS: 'El correo o la contraseña no son correctos.',
+  EMAIL_ALREADY_REGISTERED: 'Ya existe una cuenta con ese correo.',
   INTERNAL_ERROR: 'Ocurrió un error en el servidor. Inténtalo de nuevo en unos minutos.',
 }
 

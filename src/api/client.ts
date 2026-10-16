@@ -1,22 +1,31 @@
 import { ApiError, NETWORK_ERROR_MESSAGE } from './errors'
+import type { AvailabilityQuery, HotelApi } from './hotelApi'
+import { getToken } from './session'
 import type {
   ApiErrorBody,
+  AuthResponse,
   AvailableRoom,
   CreateReservationRequest,
+  LoginRequest,
+  RegisterRequest,
   Reservation,
-  RoomType,
   ServiceType,
+  User,
 } from './types'
 
 const BASE_URL = (import.meta.env.VITE_API_URL ?? 'http://localhost:8080').replace(/\/$/, '')
-const HOTEL = '/api/hotel'
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
+  const token = getToken()
   let response: Response
   try {
-    response = await fetch(`${BASE_URL}${HOTEL}${path}`, {
+    response = await fetch(`${BASE_URL}${path}`, {
       ...init,
-      headers: { 'Content-Type': 'application/json', ...init?.headers },
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...init?.headers,
+      },
     })
   } catch {
     throw new Error(NETWORK_ERROR_MESSAGE)
@@ -26,40 +35,73 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
     const body = (await response.json().catch(() => null)) as Partial<ApiErrorBody> | null
     throw new ApiError(response.status, body?.code ?? 'INTERNAL_ERROR', body?.details)
   }
+  if (response.status === 204) return undefined as T
   return (await response.json()) as T
 }
 
-export interface AvailabilityQuery {
-  checkIn: string
-  checkOut: string
-  type?: RoomType
+const id = encodeURIComponent
+
+export type { AvailabilityQuery }
+
+export function register(body: RegisterRequest) {
+  return request<AuthResponse>('/api/auth/register', { method: 'POST', body: JSON.stringify(body) })
+}
+
+export function login(body: LoginRequest) {
+  return request<AuthResponse>('/api/auth/login', { method: 'POST', body: JSON.stringify(body) })
+}
+
+export function me() {
+  return request<User>('/api/auth/me')
+}
+
+export function logout() {
+  return request<void>('/api/auth/logout', { method: 'POST' })
 }
 
 export function getAvailability({ checkIn, checkOut, type }: AvailabilityQuery) {
   const params = new URLSearchParams({ checkIn, checkOut })
   if (type) params.set('type', type)
-  return request<AvailableRoom[]>(`/disponibilidad?${params.toString()}`)
+  return request<AvailableRoom[]>(`/api/hotel/disponibilidad?${params.toString()}`)
 }
 
 export function createReservation(body: CreateReservationRequest) {
-  return request<Reservation>('/reservar', { method: 'POST', body: JSON.stringify(body) })
+  return request<Reservation>('/api/hotel/reservar', { method: 'POST', body: JSON.stringify(body) })
 }
 
-export function getReservation(id: string) {
-  return request<Reservation>(`/reserva/${encodeURIComponent(id)}`)
+export function getReservation(reservationId: string) {
+  return request<Reservation>(`/api/hotel/reserva/${id(reservationId)}`)
 }
 
-export function addService(id: string, serviceType: ServiceType) {
-  return request<Reservation>(`/servicios/${encodeURIComponent(id)}`, {
+export function addService(reservationId: string, serviceType: ServiceType) {
+  return request<Reservation>(`/api/hotel/servicios/${id(reservationId)}`, {
     method: 'POST',
     body: JSON.stringify({ serviceType }),
   })
 }
 
-export function checkIn(id: string) {
-  return request<Reservation>(`/checkin/${encodeURIComponent(id)}`, { method: 'PUT' })
+export function checkIn(reservationId: string) {
+  return request<Reservation>(`/api/hotel/checkin/${id(reservationId)}`, { method: 'PUT' })
 }
 
-export function checkOut(id: string) {
-  return request<Reservation>(`/checkout/${encodeURIComponent(id)}`, { method: 'PUT' })
+export function checkOut(reservationId: string) {
+  return request<Reservation>(`/api/hotel/checkout/${id(reservationId)}`, { method: 'PUT' })
+}
+
+export function myReservations() {
+  return request<Reservation[]>('/api/hotel/mis-reservas')
+}
+
+export const httpApi: HotelApi = {
+  register,
+  login,
+  me,
+  logout,
+  getAvailability,
+  createReservation,
+  getReservation,
+  addService,
+  checkIn,
+  checkOut,
+  myReservations,
 }

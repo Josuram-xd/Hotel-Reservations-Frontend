@@ -66,7 +66,7 @@ One commit per task, using the task message with its `[x.y]` suffix. See `DESIGN
 
 ## Phase 9 - Patterns and mock API (see docs/PATTERNS.md)
 
-- [ ] feat(api): in-memory mock implementing the full contract, switched with VITE_USE_MOCK [9.1]
+- [x] feat(api): in-memory mock implementing the full contract, switched with VITE_USE_MOCK [9.1]
 - [ ] refactor(api): HotelApi facade selecting real or mock implementation [9.2]
 - [ ] refactor(api): Adapter mappers from API responses to view models [9.3]
 - [ ] test(patterns): cover mock, facade selection and adapters [9.4]
