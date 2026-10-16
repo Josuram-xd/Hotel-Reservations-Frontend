@@ -58,7 +58,7 @@ One commit per task, using the task message with its `[x.y]` suffix. See `DESIGN
 
 ## Phase 8 - Users and authentication (needs backend Phase 8)
 
-- [ ] feat(auth): auth API calls, token storage and AuthContext provider [8.1]
+- [x] feat(auth): auth API calls, token storage and AuthContext provider [8.1]
 - [ ] feat(auth): login and register pages with Spanish validation [8.2]
 - [ ] feat(auth): protected routes and user menu in the navigation [8.3]
 - [ ] feat(auth): "Mis reservas" page listing the user reservations [8.4]
