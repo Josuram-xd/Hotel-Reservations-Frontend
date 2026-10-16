@@ -4,6 +4,7 @@ import { useApi } from '../api/ApiContext'
 import type { Reservation } from '../api/types'
 import ReservationSummary from '../components/reservation/ReservationSummary'
 import ServicesPanel from '../components/reservation/ServicesPanel'
+import StayActions from '../components/reservation/StayActions'
 import Button, { ButtonLink } from '../components/ui/Button'
 import { useAsync } from '../hooks/useAsync'
 
@@ -42,6 +43,7 @@ export default function ReservationPage() {
     content = (
       <div className="flex flex-col gap-8">
         <ReservationSummary reservation={reservation} />
+        <StayActions reservation={reservation} onUpdated={setReservation} />
         <ServicesPanel reservation={reservation} onUpdated={setReservation} />
       </div>
     )
