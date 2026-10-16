@@ -11,7 +11,7 @@ One commit per task, using the task message with its `[x.y]` suffix. See `DESIGN
 
 ## Phase 1 - Foundations
 
-- [ ] feat(api): typed API client using VITE_API_URL and error mapping to Spanish messages [1.1]
+- [x] feat(api): typed API client using VITE_API_URL and error mapping to Spanish messages [1.1]
 - [ ] feat(ui): design tokens, Outfit font, base components (Button, Input, Card) [1.2]
 - [ ] feat(layout): floating glass navigation, footer and routing [1.3]
 - [ ] test(api): cover API client success and error paths [1.4]
