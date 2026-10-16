@@ -5,6 +5,7 @@ import Booking from './pages/Booking'
 import Home from './pages/Home'
 import InvoicePage from './pages/InvoicePage'
 import Login from './pages/Login'
+import MyReservations from './pages/MyReservations'
 import PagePlaceholder from './pages/PagePlaceholder'
 import Register from './pages/Register'
 import ReservationPage from './pages/ReservationPage'
@@ -19,7 +20,7 @@ export default function App() {
         <Route path="registro" element={<Register />} />
         <Route path="buscar" element={<Search />} />
         <Route element={<ProtectedRoute />}>
-          <Route path="mis-reservas" element={<PagePlaceholder title="Mis reservas" />} />
+          <Route path="mis-reservas" element={<MyReservations />} />
           <Route path="reservar" element={<Booking />} />
           <Route path="reserva/:id" element={<ReservationPage />} />
           <Route path="factura/:id" element={<InvoicePage />} />

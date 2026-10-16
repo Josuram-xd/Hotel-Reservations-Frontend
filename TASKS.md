@@ -61,7 +61,7 @@ One commit per task, using the task message with its `[x.y]` suffix. See `DESIGN
 - [x] feat(auth): auth API calls, token storage and AuthContext provider [8.1]
 - [x] feat(auth): login and register pages with Spanish validation [8.2]
 - [x] feat(auth): protected routes and user menu in the navigation [8.3]
-- [ ] feat(auth): "Mis reservas" page listing the user reservations [8.4]
+- [x] feat(auth): "Mis reservas" page listing the user reservations [8.4]
 - [ ] test(auth): cover AuthContext, forms and protected routes [8.5]
 
 ## Phase 9 - Patterns and mock API (see docs/PATTERNS.md)
