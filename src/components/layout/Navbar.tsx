@@ -16,7 +16,7 @@ export default function Navbar() {
   }
 
   return (
-    <header className="fixed inset-x-0 top-6 z-50 flex justify-center px-4">
+    <header className="fixed inset-x-0 top-6 z-50 flex justify-center px-4 print:hidden">
       <nav
         aria-label="Navegación principal"
         className="flex max-w-full flex-wrap items-center justify-center gap-1 rounded-3xl border border-white/15 bg-ink/60 px-3 py-2 backdrop-blur-xl sm:rounded-full"

@@ -1,5 +1,5 @@
-import { screen, within } from '@testing-library/react'
-import { beforeEach } from 'vitest'
+import { fireEvent, screen, within } from '@testing-library/react'
+import { beforeEach, vi } from 'vitest'
 import App from '../App'
 import { createMockApi } from '../api/mock'
 import { clearToken, setToken } from '../api/session'
@@ -56,6 +56,16 @@ describe('Invoice page', () => {
     expect(within(view).getByText(String(roomLine.quantity))).toBeTruthy()
     expect(within(view).getByText(money(roomLine.unitPrice))).toBeTruthy()
     expect(within(view).getAllByText(money(roomLine.subtotal)).length).toBeGreaterThan(0)
+  })
+
+  it('opens the browser print dialog from the print button', async () => {
+    const printSpy = vi.spyOn(window, 'print').mockImplementation(() => undefined)
+    await setupCheckedOut()
+
+    fireEvent.click(screen.getByRole('button', { name: 'Imprimir factura' }))
+
+    expect(printSpy).toHaveBeenCalledTimes(1)
+    printSpy.mockRestore()
   })
 
   it('explains that the invoice is not available before check-out', async () => {

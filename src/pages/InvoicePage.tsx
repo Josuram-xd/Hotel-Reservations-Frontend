@@ -42,11 +42,20 @@ export default function InvoicePage() {
       </div>
     )
   } else if (loaded.data?.invoice) {
-    content = <InvoiceView invoice={loaded.data.invoice} />
+    content = (
+      <div className="flex flex-col gap-6">
+        <InvoiceView invoice={loaded.data.invoice} />
+        <div className="print:hidden">
+          <Button variant="secondary" onClick={() => window.print()}>
+            Imprimir factura
+          </Button>
+        </div>
+      </div>
+    )
   }
 
   return (
-    <section className="mx-auto max-w-3xl px-6 pb-32 pt-40">
+    <section className="mx-auto max-w-3xl px-6 pb-32 pt-40 print:pb-10 print:pt-10">
       <h1 className="mb-10 font-light" style={{ fontSize: 'clamp(2.25rem, 4.5vw, 4rem)' }}>
         Tu factura
       </h1>
