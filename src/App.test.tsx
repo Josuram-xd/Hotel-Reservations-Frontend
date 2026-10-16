@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import App from './App'
 
@@ -27,6 +27,16 @@ describe('App routing', () => {
     for (const label of ['Suite', 'Doble', 'Sencilla']) {
       expect(screen.getByRole('heading', { level: 3, name: label })).toBeTruthy()
     }
+  })
+
+  it('expands an amenity panel on click', () => {
+    renderAt('/')
+    const spa = screen.getByRole('button', { name: /Spa/ })
+    const breakfast = screen.getByRole('button', { name: /Desayuno/ })
+    expect(spa.getAttribute('aria-expanded')).toBe('true')
+    fireEvent.click(breakfast)
+    expect(breakfast.getAttribute('aria-expanded')).toBe('true')
+    expect(spa.getAttribute('aria-expanded')).toBe('false')
   })
 
   it('renders the search route', () => {
