@@ -22,6 +22,13 @@ describe('App routing', () => {
     expect(screen.getByRole('link', { name: 'Ver habitaciones' }).getAttribute('href')).toBe('#habitaciones')
   })
 
+  it('lists the three room types in the bento section', () => {
+    renderAt('/')
+    for (const label of ['Suite', 'Doble', 'Sencilla']) {
+      expect(screen.getByRole('heading', { level: 3, name: label })).toBeTruthy()
+    }
+  })
+
   it('renders the search route', () => {
     renderAt('/buscar')
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Busca tu habitación')
