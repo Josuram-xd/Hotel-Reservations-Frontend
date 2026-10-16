@@ -40,7 +40,7 @@ One commit per task, using the task message with its `[x.y]` suffix. See `DESIGN
 - [x] feat(reservation): reservation summary view by id [5.1]
 - [x] feat(reservation): add extra services (spa, desayuno, traslado) [5.2]
 - [x] feat(reservation): check-in showing the digital key [5.3]
-- [ ] feat(reservation): check-out action [5.4]
+- [x] feat(reservation): check-out action [5.4]
 - [ ] test(reservation): cover panel actions and state transitions [5.5]
 
 ## Phase 6 - Invoice
