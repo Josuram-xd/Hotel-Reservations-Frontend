@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", system-ui, sans-serif;
+  --color-ink: #0d0f12;
+  --color-sand: #f4efe6;
+  --color-gold: #c8a46a;
+}
+
+html { scroll-behavior: smooth; }
+body { background: var(--color-ink); color: var(--color-sand); font-family: var(--font-sans); }
