@@ -39,6 +39,12 @@ describe('App routing', () => {
     expect(spa.getAttribute('aria-expanded')).toBe('false')
   })
 
+  it('renders the story section and the final call to action', () => {
+    renderAt('/')
+    expect(screen.getByText('llave', { exact: false })).toBeTruthy()
+    expect(screen.getByRole('link', { name: 'Buscar habitación' }).getAttribute('href')).toBe('/buscar')
+  })
+
   it('renders the search route', () => {
     renderAt('/buscar')
     expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Busca tu habitación')
