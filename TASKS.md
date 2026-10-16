@@ -45,8 +45,8 @@ One commit per task, using the task message with its `[x.y]` suffix. See `DESIGN
 
 ## Phase 6 - Invoice
 
-- [ ] feat(invoice): final invoice view rendered from the server response [6.1]
-- [ ] feat(invoice): print-friendly layout [6.2]
+- [x] feat(invoice): final invoice view rendered from the server response [6.1]
+- [x] feat(invoice): print-friendly layout [6.2]
 
 ## Phase 7 - Quality and deployment (Vercel)
 

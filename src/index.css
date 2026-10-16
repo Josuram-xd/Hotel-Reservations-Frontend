@@ -9,3 +9,8 @@
 
 html { scroll-behavior: smooth; }
 body { background: var(--color-ink); color: var(--color-sand); font-family: var(--font-sans); }
+
+@media print {
+  html { scroll-behavior: auto; }
+  body { background: #ffffff; color: #111111; }
+}

@@ -3,6 +3,7 @@ import ProtectedRoute from './auth/ProtectedRoute'
 import Layout from './components/layout/Layout'
 import Booking from './pages/Booking'
 import Home from './pages/Home'
+import InvoicePage from './pages/InvoicePage'
 import Login from './pages/Login'
 import PagePlaceholder from './pages/PagePlaceholder'
 import Register from './pages/Register'
@@ -21,7 +22,7 @@ export default function App() {
           <Route path="mis-reservas" element={<PagePlaceholder title="Mis reservas" />} />
           <Route path="reservar" element={<Booking />} />
           <Route path="reserva/:id" element={<ReservationPage />} />
-          <Route path="factura/:id" element={<PagePlaceholder title="Tu factura" />} />
+          <Route path="factura/:id" element={<InvoicePage />} />
         </Route>
         <Route
           path="*"
