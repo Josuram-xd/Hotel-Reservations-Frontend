@@ -45,3 +45,26 @@ The frontend maps `code` to Spanish messages; the server `message` is not shown 
 ## CORS
 
 Backend must allow the frontend origin (`CORS_ALLOWED_ORIGINS`) for GET, POST, PUT and the `Content-Type` header.
+
+## Authentication (users)
+
+Users are stored in memory in the backend. Sessions use an opaque bearer token: `Authorization: Bearer <token>`.
+`GET /api/hotel/disponibilidad` is public. Every other `/api/hotel/*` endpoint requires a valid token.
+A reservation belongs to the user who created it; acting on someone else reservation returns `FORBIDDEN`.
+
+`User = { id, fullName, email }` and `AuthResponse = { token, user: User }`.
+
+| Method | Path | Body | Returns |
+|---|---|---|---|
+| POST | `/api/auth/register` | `{ fullName, email, password }` | `AuthResponse` (201) |
+| POST | `/api/auth/login` | `{ email, password }` | `AuthResponse` |
+| GET | `/api/auth/me` | none | `User` |
+| POST | `/api/auth/logout` | none | 204 |
+| GET | `/api/hotel/mis-reservas` | none | `Reservation[]` of the authenticated user |
+
+Extra error codes: `UNAUTHORIZED` (401, missing or expired token), `FORBIDDEN` (403), `INVALID_CREDENTIALS` (401), `EMAIL_ALREADY_REGISTERED` (409).
+Password rule: at least 8 characters.
+
+## Mock mode (frontend only)
+
+With `VITE_USE_MOCK=true` the frontend uses an in-memory implementation of this contract (`src/api/mock.ts`), so the UI can be developed and demoed without the backend.

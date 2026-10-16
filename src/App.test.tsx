@@ -1,19 +1,55 @@
-import { render, screen } from '@testing-library/react'
-import { MemoryRouter } from 'react-router-dom'
+import { fireEvent, screen } from '@testing-library/react'
 import App from './App'
+import { renderWithProviders } from './test/render'
 
 function renderAt(path: string) {
-  return render(
-    <MemoryRouter initialEntries={[path]}>
-      <App />
-    </MemoryRouter>,
-  )
+  return renderWithProviders(<App />, path)
 }
 
 describe('App routing', () => {
   it('renders the Spanish landing headline on the home route', () => {
     renderAt('/')
-    expect(screen.getByRole('heading', { level: 1 }).textContent).toContain('Reserva tu estancia')
+    expect(screen.getByRole('heading', { level: 1 }).textContent).toContain('Descansa donde la ciudad se detiene')
+  })
+
+  it('offers two call-to-action links in the hero', () => {
+    renderAt('/')
+    expect(screen.getByRole('link', { name: 'Reservar ahora' }).getAttribute('href')).toBe('/buscar')
+    expect(screen.getByRole('link', { name: 'Ver habitaciones' }).getAttribute('href')).toBe('#habitaciones')
+  })
+
+  it('lists the three room types in the bento section', () => {
+    renderAt('/')
+    for (const label of ['Suite', 'Doble', 'Sencilla']) {
+      expect(screen.getByRole('heading', { level: 3, name: label })).toBeTruthy()
+    }
+  })
+
+  it('expands an amenity panel on click', () => {
+    renderAt('/')
+    const spa = screen.getByRole('button', { name: /Spa/ })
+    const breakfast = screen.getByRole('button', { name: /Desayuno/ })
+    expect(spa.getAttribute('aria-expanded')).toBe('true')
+    fireEvent.click(breakfast)
+    expect(breakfast.getAttribute('aria-expanded')).toBe('true')
+    expect(spa.getAttribute('aria-expanded')).toBe('false')
+  })
+
+  it('renders the story section and the final call to action', () => {
+    renderAt('/')
+    expect(screen.getByText('llave', { exact: false })).toBeTruthy()
+    expect(screen.getByRole('link', { name: 'Buscar habitación' }).getAttribute('href')).toBe('/buscar')
+  })
+
+  it('redirects anonymous visitors from protected routes to the login page', () => {
+    renderAt('/mis-reservas')
+    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Inicia sesión')
+  })
+
+  it('shows the login link in the navigation when anonymous', () => {
+    renderAt('/')
+    expect(screen.getByRole('link', { name: 'Ingresar' })).toBeTruthy()
+    expect(screen.queryByRole('link', { name: 'Mis reservas' })).toBeNull()
   })
 
   it('renders the search route', () => {
