@@ -18,7 +18,7 @@ One commit per task, using the task message with its `[x.y]` suffix. See `DESIGN
 
 ## Phase 2 - Landing (AIDA)
 
-- [ ] feat(landing): cinematic centered hero with two CTAs [2.1]
+- [x] feat(landing): cinematic centered hero with two CTAs [2.1]
 - [ ] feat(landing): gapless bento grid of room types [2.2]
 - [ ] feat(landing): horizontal accordion for amenities (spa, restaurant, transport) [2.3]
 - [ ] feat(landing): scrubbed text reveal and image scale/fade with reduced-motion support [2.4]

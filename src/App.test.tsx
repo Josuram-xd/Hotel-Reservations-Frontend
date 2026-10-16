@@ -13,7 +13,13 @@ function renderAt(path: string) {
 describe('App routing', () => {
   it('renders the Spanish landing headline on the home route', () => {
     renderAt('/')
-    expect(screen.getByRole('heading', { level: 1 }).textContent).toContain('Reserva tu estancia')
+    expect(screen.getByRole('heading', { level: 1 }).textContent).toContain('Descansa donde la ciudad se detiene')
+  })
+
+  it('offers two call-to-action links in the hero', () => {
+    renderAt('/')
+    expect(screen.getByRole('link', { name: 'Reservar ahora' }).getAttribute('href')).toBe('/buscar')
+    expect(screen.getByRole('link', { name: 'Ver habitaciones' }).getAttribute('href')).toBe('#habitaciones')
   })
 
   it('renders the search route', () => {
