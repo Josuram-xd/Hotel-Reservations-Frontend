@@ -28,7 +28,7 @@ One commit per task, using the task message with its `[x.y]` suffix. See `DESIGN
 - [x] feat(search): date range search form with validation [3.1]
 - [x] feat(search): availability list filtered by room type [3.2]
 - [x] feat(search): room selection with dynamic price preview from the server [3.3]
-- [ ] test(search): cover form validation and availability rendering [3.4]
+- [x] test(search): cover form validation and availability rendering [3.4]
 
 ## Phase 4 - Booking
 
