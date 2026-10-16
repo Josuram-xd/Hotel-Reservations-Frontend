@@ -25,23 +25,23 @@ One commit per task, using the task message with its `[x.y]` suffix. See `DESIGN
 
 ## Phase 3 - Search and selection
 
-- [ ] feat(search): date range search form with validation [3.1]
-- [ ] feat(search): availability list filtered by room type [3.2]
-- [ ] feat(search): room selection with dynamic price preview from the server [3.3]
-- [ ] test(search): cover form validation and availability rendering [3.4]
+- [x] feat(search): date range search form with validation [3.1]
+- [x] feat(search): availability list filtered by room type [3.2]
+- [x] feat(search): room selection with dynamic price preview from the server [3.3]
+- [x] test(search): cover form validation and availability rendering [3.4]
 
 ## Phase 4 - Booking
 
-- [ ] feat(booking): guest data form with Spanish validation messages [4.1]
-- [ ] feat(booking): submit reservation and redirect to management panel [4.2]
+- [x] feat(booking): guest data form with Spanish validation messages [4.1]
+- [x] feat(booking): submit reservation and redirect to management panel [4.2]
 
 ## Phase 5 - Reservation management
 
-- [ ] feat(reservation): reservation summary view by id [5.1]
-- [ ] feat(reservation): add extra services (spa, desayuno, traslado) [5.2]
-- [ ] feat(reservation): check-in showing the digital key [5.3]
-- [ ] feat(reservation): check-out action [5.4]
-- [ ] test(reservation): cover panel actions and state transitions [5.5]
+- [x] feat(reservation): reservation summary view by id [5.1]
+- [x] feat(reservation): add extra services (spa, desayuno, traslado) [5.2]
+- [x] feat(reservation): check-in showing the digital key [5.3]
+- [x] feat(reservation): check-out action [5.4]
+- [x] test(reservation): cover panel actions and state transitions [5.5]
 
 ## Phase 6 - Invoice
 
@@ -58,15 +58,15 @@ One commit per task, using the task message with its `[x.y]` suffix. See `DESIGN
 
 ## Phase 8 - Users and authentication (needs backend Phase 8)
 
-- [ ] feat(auth): auth API calls, token storage and AuthContext provider [8.1]
-- [ ] feat(auth): login and register pages with Spanish validation [8.2]
-- [ ] feat(auth): protected routes and user menu in the navigation [8.3]
+- [x] feat(auth): auth API calls, token storage and AuthContext provider [8.1]
+- [x] feat(auth): login and register pages with Spanish validation [8.2]
+- [x] feat(auth): protected routes and user menu in the navigation [8.3]
 - [ ] feat(auth): "Mis reservas" page listing the user reservations [8.4]
 - [ ] test(auth): cover AuthContext, forms and protected routes [8.5]
 
 ## Phase 9 - Patterns and mock API (see docs/PATTERNS.md)
 
-- [ ] feat(api): in-memory mock implementing the full contract, switched with VITE_USE_MOCK [9.1]
-- [ ] refactor(api): HotelApi facade selecting real or mock implementation [9.2]
+- [x] feat(api): in-memory mock implementing the full contract, switched with VITE_USE_MOCK [9.1]
+- [x] refactor(api): HotelApi facade selecting real or mock implementation [9.2]
 - [ ] refactor(api): Adapter mappers from API responses to view models [9.3]
 - [ ] test(patterns): cover mock, facade selection and adapters [9.4]

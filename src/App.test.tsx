@@ -1,13 +1,9 @@
-import { fireEvent, render, screen } from '@testing-library/react'
-import { MemoryRouter } from 'react-router-dom'
+import { fireEvent, screen } from '@testing-library/react'
 import App from './App'
+import { renderWithProviders } from './test/render'
 
 function renderAt(path: string) {
-  return render(
-    <MemoryRouter initialEntries={[path]}>
-      <App />
-    </MemoryRouter>,
-  )
+  return renderWithProviders(<App />, path)
 }
 
 describe('App routing', () => {
@@ -43,6 +39,17 @@ describe('App routing', () => {
     renderAt('/')
     expect(screen.getByText('llave', { exact: false })).toBeTruthy()
     expect(screen.getByRole('link', { name: 'Buscar habitación' }).getAttribute('href')).toBe('/buscar')
+  })
+
+  it('redirects anonymous visitors from protected routes to the login page', () => {
+    renderAt('/mis-reservas')
+    expect(screen.getByRole('heading', { level: 1 }).textContent).toBe('Inicia sesión')
+  })
+
+  it('shows the login link in the navigation when anonymous', () => {
+    renderAt('/')
+    expect(screen.getByRole('link', { name: 'Ingresar' })).toBeTruthy()
+    expect(screen.queryByRole('link', { name: 'Mis reservas' })).toBeNull()
   })
 
   it('renders the search route', () => {

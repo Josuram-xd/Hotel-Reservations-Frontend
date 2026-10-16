@@ -1,5 +1,16 @@
 import { afterEach, beforeEach, vi } from 'vitest'
-import { addService, checkIn, checkOut, createReservation, getAvailability, getReservation } from './client'
+import {
+  addService,
+  checkIn,
+  checkOut,
+  createReservation,
+  getAvailability,
+  getReservation,
+  login,
+  logout,
+  myReservations,
+} from './client'
+import { clearToken, setToken } from './session'
 import { ApiError, NETWORK_ERROR_MESSAGE, getErrorMessage, toSpanishMessage } from './errors'
 
 const fetchMock = vi.fn()
@@ -15,6 +26,31 @@ beforeEach(() => {
 afterEach(() => {
   fetchMock.mockReset()
   vi.unstubAllGlobals()
+})
+
+describe('api client auth', () => {
+  it('sends the bearer token when a session exists', async () => {
+    setToken('abc')
+    fetchMock.mockReturnValue(jsonResponse([]))
+    await myReservations()
+    expect(fetchMock.mock.calls[0][1].headers.Authorization).toBe('Bearer abc')
+    clearToken()
+  })
+
+  it('does not send Authorization without a session', async () => {
+    clearToken()
+    fetchMock.mockReturnValue(jsonResponse([]))
+    await getAvailability({ checkIn: '2026-12-20', checkOut: '2026-12-23' })
+    expect(fetchMock.mock.calls[0][1].headers.Authorization).toBeUndefined()
+  })
+
+  it('posts login credentials and handles 204 on logout', async () => {
+    fetchMock.mockReturnValueOnce(jsonResponse({ token: 't', user: { id: 'u1' } }))
+    await login({ email: 'a@b.co', password: '12345678' })
+    expect(fetchMock.mock.calls[0][0]).toContain('/api/auth/login')
+    fetchMock.mockReturnValueOnce(Promise.resolve(new Response(null, { status: 204 })))
+    await expect(logout()).resolves.toBeUndefined()
+  })
 })
 
 describe('api client requests', () => {

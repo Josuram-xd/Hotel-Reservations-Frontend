@@ -70,6 +70,28 @@ export interface Reservation {
   invoice: Invoice | null
 }
 
+export interface User {
+  id: string
+  fullName: string
+  email: string
+}
+
+export interface RegisterRequest {
+  fullName: string
+  email: string
+  password: string
+}
+
+export interface LoginRequest {
+  email: string
+  password: string
+}
+
+export interface AuthResponse {
+  token: string
+  user: User
+}
+
 export interface ApiErrorBody {
   status: number
   code: string
