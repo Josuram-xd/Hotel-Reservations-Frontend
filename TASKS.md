@@ -55,3 +55,18 @@ One commit per task, using the task message with its `[x.y]` suffix. See `DESIGN
 - [ ] ci: add GitHub Actions workflow running typecheck, test and build [7.3]
 - [ ] chore(deploy): deploy to Vercel with VITE_API_URL pointing to Railway [7.4]
 - [ ] chore(deploy): production smoke test of the full booking flow [7.5]
+
+## Phase 8 - Users and authentication (needs backend Phase 8)
+
+- [ ] feat(auth): auth API calls, token storage and AuthContext provider [8.1]
+- [ ] feat(auth): login and register pages with Spanish validation [8.2]
+- [ ] feat(auth): protected routes and user menu in the navigation [8.3]
+- [ ] feat(auth): "Mis reservas" page listing the user reservations [8.4]
+- [ ] test(auth): cover AuthContext, forms and protected routes [8.5]
+
+## Phase 9 - Patterns and mock API (see docs/PATTERNS.md)
+
+- [ ] feat(api): in-memory mock implementing the full contract, switched with VITE_USE_MOCK [9.1]
+- [ ] refactor(api): HotelApi facade selecting real or mock implementation [9.2]
+- [ ] refactor(api): Adapter mappers from API responses to view models [9.3]
+- [ ] test(patterns): cover mock, facade selection and adapters [9.4]
